@@ -33,6 +33,17 @@ public class RedissonManager {
         }
     }
 
+
+    public RedissonManager (String connectionType, String address,String password,int database) {
+        try {
+            config = RedissonConfigFactory.getInstance().createConfig(connectionType, address,password,database);
+            redisson = (Redisson) Redisson.create(config);
+        } catch (Exception e) {
+            LOGGER.error("Redisson init error", e);
+            e.printStackTrace();
+        }
+    }
+
     public Redisson getRedisson() {
         return redisson;
     }
@@ -80,6 +91,30 @@ public class RedissonManager {
                 throw new RuntimeException("创建Redisson连接Config失败！当前连接方式:" + connectionType);
             }
             return redissonConfigContext.createRedissonConfig(address);
+        }
+
+
+
+        Config createConfig(String connectionType, String address,String password,int database) {
+            Preconditions.checkNotNull(connectionType);
+            Preconditions.checkNotNull(address);
+            Preconditions.checkNotNull(password);
+            Preconditions.checkNotNull(database);
+
+            /**声明配置上下文*/
+            RedissonConfigContext redissonConfigContext = null;
+            if (connectionType.equals(RedisConnectionType.STANDALONE.getConnection_type())) {
+                redissonConfigContext = new RedissonConfigContext(new StandaloneRedissonConfigStrategyImpl());
+            } else if (connectionType.equals(RedisConnectionType.SENTINEL.getConnection_type())) {
+                redissonConfigContext = new RedissonConfigContext(new SentinelRedissonConfigStrategyImpl());
+            } else if (connectionType.equals(RedisConnectionType.CLUSTER.getConnection_type())) {
+                redissonConfigContext = new RedissonConfigContext(new ClusterRedissonConfigStrategyImpl());
+            } else if (connectionType.equals(RedisConnectionType.MASTERSLAVE.getConnection_type())) {
+                redissonConfigContext = new RedissonConfigContext(new MasterslaveRedissonConfigStrategyImpl());
+            } else {
+                throw new RuntimeException("创建Redisson连接Config失败！当前连接方式:" + connectionType);
+            }
+            return redissonConfigContext.createRedissonConfig(address,password,database);
         }
     }
 

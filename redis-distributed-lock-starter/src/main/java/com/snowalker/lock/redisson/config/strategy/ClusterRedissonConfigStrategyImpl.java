@@ -34,4 +34,14 @@ public class ClusterRedissonConfigStrategyImpl implements RedissonConfigStrategy
         }
         return config;
     }
+
+    @Override
+    public Config createRedissonConfig(String address, String password) {
+        return null;
+    }
+
+    @Override
+    public Config createRedissonConfig(String address, String password, int database) {
+        return null;
+    }
 }

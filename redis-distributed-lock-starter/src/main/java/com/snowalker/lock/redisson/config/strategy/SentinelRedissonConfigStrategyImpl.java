@@ -34,4 +34,14 @@ public class SentinelRedissonConfigStrategyImpl implements RedissonConfigStrateg
         }
         return config;
     }
+
+    @Override
+    public Config createRedissonConfig(String address, String password) {
+        return null;
+    }
+
+    @Override
+    public Config createRedissonConfig(String address, String password, int database) {
+        return null;
+    }
 }

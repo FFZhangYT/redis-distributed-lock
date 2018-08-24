@@ -15,4 +15,23 @@ public interface RedissonConfigStrategy {
      * @return Config
      */
     Config createRedissonConfig(String address);
+
+
+    /**
+     *
+     * @param address
+     * @param password
+     * @return
+     */
+    Config createRedissonConfig(String address,String password);
+
+
+    /**
+     *
+     * @param address
+     * @param password
+     * @param database
+     * @return
+     */
+    Config createRedissonConfig(String address,String password,int database);
 }

@@ -23,4 +23,16 @@ public class RedissonConfigContext {
     public Config createRedissonConfig(String address) {
         return this.redissonConfigStrategy.createRedissonConfig(address);
     }
+
+
+    /**
+     *
+     * @param address
+     * @param password
+     * @param database
+     * @return
+     */
+    public Config createRedissonConfig(String address, String password, int database) {
+        return this.redissonConfigStrategy.createRedissonConfig(address,password,database);
+    }
 }

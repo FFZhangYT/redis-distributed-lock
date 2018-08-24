@@ -15,6 +15,12 @@ public class RedissonProperties {
     /**连接类型，支持standalone-单机节点，sentinel-哨兵，cluster-集群，masterslave-主从*/
     private String type;
 
+
+    private String password;
+
+
+    private int database;
+
     public String getAddress() {
         return address;
     }
@@ -29,5 +35,22 @@ public class RedissonProperties {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getDatabase() {
+        return database;
+    }
+
+    public void setDatabase(int database) {
+        this.database = database;
     }
 }

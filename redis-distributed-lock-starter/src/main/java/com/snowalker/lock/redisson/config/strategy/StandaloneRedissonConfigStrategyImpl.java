@@ -27,4 +27,37 @@ public class StandaloneRedissonConfigStrategyImpl implements RedissonConfigStrat
         }
         return config;
     }
+
+
+
+    @Override
+    public Config createRedissonConfig(String address,String password) {
+        Config config = new Config();
+        try {
+            String redisAddr = GlobalConstant.REDIS_CONNECTION_PREFIX.getConstant_value() + address;
+            config.useSingleServer().setAddress(redisAddr).setPassword(password);
+            LOGGER.info("初始化[standalone]方式Config,redisAddress:" + address);
+            LOGGER.info("初始化[standalone]方式Config,redisPassword:" + password);
+        } catch (Exception e) {
+            LOGGER.error("standalone Redisson init error", e);
+            e.printStackTrace();
+        }
+        return config;
+    }
+
+
+    @Override
+    public Config createRedissonConfig(String address,String password,int database) {
+        Config config = new Config();
+        try {
+            String redisAddr = GlobalConstant.REDIS_CONNECTION_PREFIX.getConstant_value() + address;
+            config.useSingleServer().setAddress(redisAddr).setPassword(password).setDatabase(database);
+            LOGGER.info("初始化[standalone]方式Config,redisAddress:" + address);
+            LOGGER.info("初始化[standalone]方式Config,redisPassword:" + password);
+        } catch (Exception e) {
+            LOGGER.error("standalone Redisson init error", e);
+            e.printStackTrace();
+        }
+        return config;
+    }
 }
